@@ -1,0 +1,34 @@
+---
+version: "2.1"
+services:
+  qbittorrent:
+    #image: lscr.io/linuxserver/qbittorrent:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qbittorrent
+    environment:
+      - PUID=1002
+      - PGID=1002
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8081
+    volumes:
+      - tarrf:/tarr-dls
+      - tarrf:/config
+        #networks:
+        #- tarrnet
+    ports:
+      - 8081:8081
+      - 6881:6881
+      - 6881:6881/udp
+    security_opt:
+      - seccomp=unconfined
+    command: sh -c "/usr/local/bin/init.sh"
+    restart: unless-stopped
+volumes:
+  tarrf:
+    external: true
+      #networks:
+      #  tarrnet:
+      #driver: tarrnet
+      #external: true

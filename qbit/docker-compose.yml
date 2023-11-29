@@ -1,19 +1,19 @@
 ---
 version: "2.1"
 services:
-  qbittorrent:
+  qbittorrent2:
     image: lscr.io/linuxserver/qbittorrent:4.6.0
-    container_name: qbittorrent
+    container_name: qbittorrent2
     environment:
       - PUID=1002
       - PGID=1002
       - TZ=Etc/UTC
       - WEBUI_PORT=8081
     volumes:
-      - tarrf:/tarr-dls
-      - tarrconf:/config
-        #networks:
-        #- tarrnet
+      - datashare:/torrs
+      - qbitconf:/newconfig
+    networks:
+      - tarrnet
     ports:
       - 8081:8081
       - 6881:6881
@@ -22,11 +22,9 @@ services:
       - seccomp=unconfined
     restart: unless-stopped
 volumes:
-  tarrf:
+  datashare:
     external: true
-  tarrconf:
-    external: true
-  tarrdata:
+  qbitconf:
     external: true
 networks:
   tarrnet:

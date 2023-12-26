@@ -10,7 +10,7 @@ services:
       - TZ=Etc/UTC
       - WEBUI_PORT=8081
     volumes:
-      - datashare:/torrs
+      - /home/tarr/Downloads:/torrs
       - qbitconf:/newconfig
     networks:
       - tarrnet

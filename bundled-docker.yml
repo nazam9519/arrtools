@@ -1,0 +1,49 @@
+version: "2.1"
+services:
+  qbittorrent3:
+    image: lscr.io/linuxserver/qbittorrent:4.6.0
+    container_name: qbittorrent3
+    environment:
+      - PUID=1002
+      - PGID=1002
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8081
+    volumes:
+      - /home/tarr/docker/data/qbit:/data/qbit:rw
+      - /home/tarr/docker/appdata/qbit:/config
+    ports:
+      - 8081:8081
+      - 6881:6881
+      - 6881:6881/udp
+    security_opt:
+      - seccomp=unconfined
+    restart: unless-stopped
+  prowlarr3:
+    image: ghcr.io/hotio/prowlarr:latest
+    container_name: prowlarr3
+    environment:
+      - PUID=1002
+      - PGID=1002
+      - TZ=Etc/UTC
+    volumes:
+      - /home/tarr/docker/appdata/prowl:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+  radarr3:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr3
+    environment:
+      - PUID=1002
+      - PGID=1002
+      - TZ=Etc/UTC
+    volumes:
+      - /home/tarr/docker/appdata/radarr:/config
+      - /home/tarr/docker/data:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+networks:
+  tarrnet:
+    driver: tarrnet
+    external: true

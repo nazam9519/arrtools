@@ -9,8 +9,8 @@ services:
       - TZ=Etc/UTC
     volumes:
       - radarrconf:/config
-      - radata:/movies
-      - datashare:/torrs
+      - /home/tarr/movies:/movies
+      - /home/tarr/Downloads:/torrs
     ports:
       - 7878:7878
     restart: unless-stopped

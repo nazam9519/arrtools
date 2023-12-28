@@ -9,8 +9,8 @@ services:
       - TZ=Etc/UTC
       - WEBUI_PORT=8081
     volumes:
-      - /home/tarr/docker/data/qbit:/data/qbit:rw
-      - /home/tarr/docker/appdata/qbit:/config
+      - ${DATADIR}/qbit:/data/qbit:rw
+      - ${CONFIR}/appdata/qbit:/config
     ports:
       - 8081:8081
       - 6881:6881
@@ -26,7 +26,7 @@ services:
       - PGID=1002
       - TZ=Etc/UTC
     volumes:
-      - /home/tarr/docker/appdata/prowl:/config
+      - ${CONFIR}/appdata/prowl:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -38,8 +38,8 @@ services:
       - PGID=1002
       - TZ=Etc/UTC
     volumes:
-      - /home/tarr/docker/appdata/radarr:/config
-      - /home/tarr/docker/data:/data
+      - ${CONFIR}/appdata/radarr:/config
+      - ${DATADIR}:/data
     ports:
       - 7878:7878
     restart: unless-stopped

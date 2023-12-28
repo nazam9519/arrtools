@@ -1,0 +1,21 @@
+version: "2.1"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    ports:
+      - 32400:32400
+    environment:
+      - PUID=1002
+      - PGID=1002
+      - TZ=Etc/UTC
+      - VERSION=docker
+    volumes:
+      - /home/tarr/docker/appconfig:/config
+      - /home/tarr/data/media:/data
+    restart: unless-stopped
+networks:
+  tarrnet:
+    driver: tarrnet
+    external: true

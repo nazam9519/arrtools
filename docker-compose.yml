@@ -9,8 +9,8 @@ services:
       - TZ=Etc/UTC
       - WEBUI_PORT=8081
     volumes:
-      - ${DATADIR}/qbit:/data/qbit:rw
-      - ${CONFIR}/appdata/qbit:/config
+      - /home/tarr/docker/data/qbit:/data/qbit:rw
+      - /home/tarr/docker/appdata/qbit:/config
     ports:
       - 8081:8081
       - 6881:6881
@@ -26,7 +26,7 @@ services:
       - PGID=1002
       - TZ=Etc/UTC
     volumes:
-      - ${CONFIR}/appdata/prowl:/config
+      - /home/tarr/docker/appdata/prowl:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -38,11 +38,35 @@ services:
       - PGID=1002
       - TZ=Etc/UTC
     volumes:
-      - ${CONFIR}/appdata/radarr:/config
-      - ${DATADIR}:/data
+      - /home/tarr/docker/appdata/radarr:/config
+      - /home/tarr/docker/data:/data
     ports:
       - 7878:7878
     restart: unless-stopped
+  sonarr3:
+    container_name: sonarr3
+    image: ghcr.io/hotio/sonarr:latest
+    restart: unless-stopped
+    ports:
+      - 8989:8989
+    environment:
+      - PUID=1002
+      - PGID=1002
+    volumes:
+      - /home/tarr/docker/appdata/sonarr:/config
+      - /home/tarr/docker/data:/data
+  sabnzbd:
+    container_name: sabnzbd
+    image: ghcr.io/hotio/sabnzbd:latest
+    restart: unless-stopped
+    ports:
+      - 8082:8080
+    environment:
+      - PUID=1002
+      - PGID=1002
+    volumes:
+      - /home/tarr/docker/appdata/sabnzbd:/config
+      - /home/tarr/docker/data/sabnzbd:/data/sabnzbd:rw
 networks:
   tarrnet:
     driver: tarrnet

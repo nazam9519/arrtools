@@ -9,7 +9,7 @@ import argparse
 """
 def main():
     #setup url and rest calls
-    rest_url = "http://unraid.nabil.net:8989"
+    rest_url = ""
     rest_call = {
         "series":f"{constants['api']}/series",
         "editor":f"{constants['api']}/series/editor"

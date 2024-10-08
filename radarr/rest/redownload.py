@@ -9,7 +9,7 @@ import argparse
 """
 def main():
     #setup url and rest calls
-    rest_url = "url"
+    rest_url = "http://unraid.nabil.net:7878"
     rest_call = {
         "movies":f"{constants['api']}/movie",
         "command":f"{constants['api']}/command",
@@ -30,16 +30,20 @@ def main():
         return
     else:
         movies = movies.json()
-    fids = [fid['id'] for fid in movies if fid['id'] is not None]
+    fids = [fid['movieFileId'] for fid in movies if fid['movieFileId'] != 0]
+    redownload = [fid['movieId'] for fid in movies if fid['movieFileId'] != 0]
     files = requests.get(
         url=f"{rest_url}/{rest_call['file']}",
-        params={"movieId":fids},
+        params={"movieFileIds":fids},
         headers=headers
     )
     files = files.json()
     ultraHD = [file for file in files if file['quality']['quality']['resolution'] == 2160]
     print(ultraHD)
-    """
+    """TODO
+    -delete 4k movies
+    -issue command to search api to redownload movie
+
     #check for the movie filters and execute a post to the command api
     #this triggers the automatic search function for the movie in radarr
     if specify_str is not None:
@@ -69,7 +73,7 @@ if __name__ == "__main__":
        api_token- token from radarr -> settings -> general-> API Key
        headers- uses api_token for auth
     """
-    api_token = "api-key"
+    api_token = "110b36b161b046c5b9a6551ee34479fd"
     headers={"Authorization":f"Bearer {api_token}"}
 
     """CONSTANTS

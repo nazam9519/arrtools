@@ -9,7 +9,7 @@ import argparse
 """
 def main():
     #setup url and rest calls
-    rest_url = "http://unraid.nabil.net:7878"
+    rest_url = ""
     rest_call = {
         "movies":f"{constants['api']}/movie",
         "command":f"{constants['api']}/command",
@@ -73,7 +73,7 @@ if __name__ == "__main__":
        api_token- token from radarr -> settings -> general-> API Key
        headers- uses api_token for auth
     """
-    api_token = "110b36b161b046c5b9a6551ee34479fd"
+    api_token = ""
     headers={"Authorization":f"Bearer {api_token}"}
 
     """CONSTANTS

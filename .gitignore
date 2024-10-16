@@ -1,3 +1,5 @@
 prowl/indexerkeys/*
 indexerkeys/*
 .vscode/
+auth/serverinfo.py
+__pycache__

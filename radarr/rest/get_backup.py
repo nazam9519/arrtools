@@ -49,7 +49,7 @@ def main():
 if __name__ == "__main__":
     #server info is a static class which should contain a url and key
     server_info = ServerInfo.getRadarr()
-    api_token = server_info['key'] #"110b36b161b046c5b9a6551ee34479fd"
+    api_token = server_info['key'] 
     headers={"Authorization":f"Bearer {api_token}"}
 
     constants = {"radarrPageSize":{"pageSize":100},"api":"api/v3"}
